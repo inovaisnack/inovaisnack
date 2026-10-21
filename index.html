@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inova Isnack - Cantina Escolar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO / NAVEGAÇÃO -->
+    <header class="navbar">
+        <div class="logo-container">
+            <div class="logo-placeholder">LOGO</div>
+            <h1 class="brand-title">Inova Isnack</h1>
+        </div>
+        <nav class="nav-links">
+            <button class="nav-btn active" onclick="mostrarTela('inicio')">Início</button>
+            <button class="nav-btn" onclick="mostrarTela('menu')">Menu</button>
+            <button class="nav-btn" onclick="mostrarTela('sobre')">Sobre</button>
+            <button class="nav-btn" onclick="mostrarTela('login-func')">Funcio</button>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (MUDANÇA DE TELAS) -->
+    <main class="main-content">
+
+        <!-- TELA 1: INÍCIO -->
+        <section id="tela-inicio" class="section-page">
+            <div class="banner-box">
+                <h2>Banner</h2>
+            </div>
+            <div class="sobre-preview-box">
+                <h2>Sobre</h2>
+                <p>Bem-vindo à Inova Isnack! Facilite a compra dos seus lanches na cantina escolar.</p>
+            </div>
+        </section>
+
+        <!-- TELA 2: MENU (CARDÁPIO) -->
+        <section id="tela-menu" class="section-page hidden">
+            <h2 class="section-title">Menu</h2>
+
+            <div class="menu-list">
+                <!-- Exemplo de item baseado no mock do Canva -->
+                <div class="menu-card">
+                    <div class="item-img-placeholder">ITEM</div>
+                    <div class="item-info">
+                        <h3>Descrição e preço</h3>
+                        <p class="item-desc">Salgado assado, sucos e lanches naturais fresquinhos.</p>
+                        <span class="item-price">R$ 7,50</span>
+                        <button class="btn-primary" onclick="adicionarAoCarrinho('Lanche Exemplo', 7.50)">Adicionar ao
+                            Pedido</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TELA 3: SOBRE -->
+        <section id="tela-sobre" class="section-page hidden">
+            <div class="info-card">
+                <h2>Sobre o Projeto Inova Isnack</h2>
+                <p>Este sistema foi desenvolvido para modernizar e agilizar o atendimento na cantina escolar, evitando
+                    filas no recreio.</p>
+            </div>
+        </section>
+
+        <!-- TELA 4: LOGIN FUNCIONÁRIO -->
+        <section id="tela-login-func" class="section-page hidden">
+            <div class="login-box">
+                <h2>Login/Cadastro Funcionário</h2>
+                <form id="form-login" onsubmit="realizarLogin(event)">
+                    <div class="form-group">
+                        <label for="usuario">Usuário:</label>
+                        <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Entrar no Painel</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TELA 5: PAINEL DO FUNCIONÁRIO (ÁREA RESTRITA) -->
+        <section id="tela-painel-func" class="section-page hidden">
+            <div class="subnav-func">
+                <button class="subnav-btn active" onclick="mostrarSubTela('estoque')">Estoque</button>
+                <button class="subnav-btn" onclick="mostrarSubTela('pedidos')">Pedidos</button>
+                <button class="subnav-btn" onclick="mostrarSubTela('extrato')">Extrato</button>
+            </div>
+
+            <!-- SUBTELA: ESTOQUE -->
+            <div id="subtela-estoque" class="subsection-page">
+                <h3>Gerenciamento de Estoque</h3>
+                <p>Aqui o funcionário poderá cadastrar, editar ou desativar produtos indisponíveis.</p>
+            </div>
+
+            <!-- SUBTELA: PEDIDOS -->
+            <div id="subtela-pedidos" class="subsection-page hidden">
+                <h3>Pedidos Recebidos</h3>
+                <div id="lista-pedidos-recebidos">
+                    <p>Nenhum pedido recebido até o momento.</p>
+                </div>
+            </div>
+
+            <!-- SUBTELA: EXTRATO -->
+            <div id="subtela-extrato" class="subsection-page hidden">
+                <h3>Extrato de Vendas</h3>
+                <p>Relatório de vendas realizadas no dia.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

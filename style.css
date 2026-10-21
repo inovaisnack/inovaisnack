@@ -1,0 +1,253 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+/* HEADER / CABEÇALHO DA NAVEGAÇÃO */
+.navbar {
+    background-color: #0b1e4f;
+    /* Azul escuro igual ao do Canva */
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    flex-wrap: wrap;
+    /* Permite que os elementos se acomodem em telas menores */
+    gap: 15px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder {
+    background-color: #555555;
+    color: #ffffff;
+    width: 100px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.brand-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background-color: #333333;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* CARDS DO LAYOUT */
+.banner-box {
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.sobre-preview-box {
+    background-color: #555555;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.menu-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item-img-placeholder {
+    background-color: #555555;
+    color: white;
+    width: 120px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* FORMULÁRIO E SUB-ABAS DE FUNCIONÁRIO */
+.login-box {
+    background-color: #555555;
+    color: white;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.subnav-func {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.subnav-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.subnav-btn.active {
+    background-color: #0b1e4f;
+}
+
+.subsection-page {
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #0b1e4f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* =======================================================
+   RESPONSIVIDADE (REGRAS PARA CELULARES E TABLETS)
+   ======================================================= */
+
+@media (max-width: 768px) {
+
+    /* Centraliza o cabeçalho no celular */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .logo-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        flex: 1;
+        /* Faz os botões se ajustarem proporcionalmente */
+        padding: 10px 8px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Ajusta os cards do menu para ficarem na vertical no celular */
+    .menu-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .item-img-placeholder {
+        width: 100%;
+        height: 140px;
+    }
+
+    /* Sub-navegação do Funcionário em telas pequenas */
+    .subnav-func {
+        justify-content: space-between;
+    }
+
+    .subnav-btn {
+        flex: 1;
+        padding: 10px;
+        font-size: 14px;
+    }
+}
