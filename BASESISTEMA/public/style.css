@@ -1,0 +1,250 @@
+:root {
+  --fundo: #f4f6f3;
+  --papel: #ffffff;
+  --texto: #1d2a24;
+  --verde: #1f5e4b;
+  --verde-claro: #dcebe4;
+  --amarelo: #f2b705;
+  --cinza: #6b7a72;
+  --borda: #d5ddd8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #141b17;
+    --papel: #1d2722;
+    --texto: #e8efe9;
+    --verde: #5fbf9f;
+    --verde-claro: #25382f;
+    --cinza: #9aaba1;
+    --borda: #33433b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+header {
+  background: var(--verde);
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+header a {
+  color: #fff;
+  font-size: .9rem;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background: var(--verde);
+  color: #fff;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+button.claro {
+  background: var(--verde-claro);
+  color: var(--texto);
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+input {
+  font: inherit;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  background: var(--papel);
+  color: var(--texto);
+}
+
+/* Página de pedidos */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.painel {
+  background: var(--papel);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.produto {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.produto img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.produto .info {
+  flex: 1;
+}
+
+.descricao {
+  color: var(--cinza);
+  font-size: .9rem;
+}
+
+.produto:last-child {
+  border-bottom: 0;
+}
+
+.preco {
+  color: var(--cinza);
+  font-size: .9rem;
+}
+
+.carrinho-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 12px 0;
+}
+
+.mensagem {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--verde-claro);
+}
+
+.mensagem.erro {
+  background: #f8d7da;
+  color: #5b1a21;
+}
+
+/* Página da cozinha */
+.colunas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .colunas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coluna h2 {
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--amarelo);
+}
+
+.cartao {
+  background: var(--papel);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.cartao h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.cartao small {
+  color: var(--cinza);
+}
+
+.cartao ul {
+  margin: 8px 0;
+  padding-left: 18px;
+}
+
+.vazio {
+  color: var(--cinza);
+  font-style: italic;
+}
+
+/* Cadastro de produtos (cozinha) */
+.barra {
+  margin-bottom: 16px;
+}
+
+.form-produto {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  max-width: 520px;
+}
+
+.form-produto[hidden] {
+  display: none;
+}
+
+.form-produto label {
+  display: block;
+  font-size: .9rem;
+  margin-bottom: 4px;
+}

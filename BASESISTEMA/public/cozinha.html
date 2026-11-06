@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cantina - Cozinha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Cozinha</h1>
+    <a href="index.html">Ir para os pedidos</a>
+  </header>
+
+  <main>
+    <div class="barra">
+      <button id="abrir-form" class="claro">Adicionar produto ao cardápio</button>
+      <form id="form-produto" class="painel form-produto" hidden>
+        <div>
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" maxlength="80" required>
+        </div>
+        <div>
+          <label for="descricao">Descrição</label>
+          <input id="descricao" name="descricao" maxlength="255" placeholder="Ex.: Recheada com frango e catupiry">
+        </div>
+        <div>
+          <label for="preco">Preço (R$)</label>
+          <input id="preco" name="preco" type="number" step="0.01" min="0" required>
+        </div>
+        <div>
+          <label for="foto">Foto (JPG, PNG ou WEBP, até 3 MB)</label>
+          <input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp">
+        </div>
+        <div><button type="submit">Salvar produto</button></div>
+        <div id="msg-produto"></div>
+      </form>
+    </div>
+
+    <div class="colunas">
+      <section class="coluna">
+        <h2>Novos</h2>
+        <div id="col-novo"></div>
+      </section>
+      <section class="coluna">
+        <h2>Preparando</h2>
+        <div id="col-preparando"></div>
+      </section>
+      <section class="coluna">
+        <h2>Prontos</h2>
+        <div id="col-pronto"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Qual é o próximo status e o texto do botão em cada coluna
+    const proximo = {
+      novo: { status: 'preparando', texto: 'Começar a preparar' },
+      preparando: { status: 'pronto', texto: 'Marcar como pronto' },
+      pronto: { status: 'entregue', texto: 'Entregue' }
+    };
+
+    async function carregar() {
+      try {
+        const res = await fetch('/api/pedidos');
+        const pedidos = await res.json();
+
+        ['novo', 'preparando', 'pronto'].forEach(status => {
+          const col = document.getElementById('col-' + status);
+          col.innerHTML = '';
+          const doStatus = pedidos.filter(p => p.status === status);
+
+          if (doStatus.length === 0) {
+            col.innerHTML = '<p class="vazio">Nenhum pedido aqui.</p>';
+            return;
+          }
+
+          doStatus.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'cartao';
+
+            const titulo = document.createElement('h3');
+            titulo.textContent = `Pedido ${p.id} - ${p.cliente}`;
+
+            const hora = document.createElement('small');
+            hora.textContent = new Date(p.criado_em).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            const lista = document.createElement('ul');
+            p.itens.forEach(i => {
+              const li = document.createElement('li');
+              li.textContent = `${i.quantidade}x ${i.nome}`;
+              lista.appendChild(li);
+            });
+
+            const btn = document.createElement('button');
+            btn.textContent = proximo[status].texto;
+            btn.onclick = async () => {
+              await fetch(`/api/pedidos/${p.id}/status`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: proximo[status].status })
+              });
+              carregar();
+            };
+
+            card.append(titulo, hora, lista, btn);
+            col.appendChild(card);
+          });
+        });
+      } catch (e) {
+        console.error('Erro ao carregar pedidos', e);
+      }
+    }
+
+    // Cadastro de produto
+    const form = document.getElementById('form-produto');
+    document.getElementById('abrir-form').onclick = () => { form.hidden = !form.hidden; };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('msg-produto');
+      const res = await fetch('/api/produtos', { method: 'POST', body: new FormData(form) });
+      const dados = await res.json();
+      if (res.ok) {
+        msg.className = 'mensagem';
+        msg.textContent = 'Produto adicionado ao cardápio!';
+        form.reset();
+      } else {
+        msg.className = 'mensagem erro';
+        msg.textContent = dados.erro || 'Não foi possível salvar o produto.';
+      }
+    });
+
+    carregar();
+    setInterval(carregar, 5000); // atualiza a cada 5 segundos
+  </script>
+</body>
+
+</html>

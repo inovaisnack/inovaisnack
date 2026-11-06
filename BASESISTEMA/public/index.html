@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cantina - Fazer pedido</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Cantina</h1>
+  </header>
+
+  <main class="layout">
+    <section class="painel">
+      <h2>Cardápio</h2>
+      <div id="lista-produtos">Carregando...</div>
+    </section>
+
+    <section class="painel">
+      <h2>Seu pedido</h2>
+      <div id="carrinho">
+        <p class="vazio">Nenhum item ainda. Escolha algo do cardápio.</p>
+      </div>
+      <p class="total" id="total"></p>
+      <label for="cliente">Seu nome</label>
+      <input id="cliente" maxlength="80" placeholder="Ex.: Ana - 2º B">
+      <p><button id="enviar" disabled>Enviar pedido</button></p>
+      <div id="mensagem"></div>
+    </section>
+  </main>
+
+  <script>
+    const carrinho = {};   // { produtoId: { nome, preco, quantidade } }
+    const brl = v => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    async function carregarProdutos() {
+      const res = await fetch('/api/produtos');
+      const produtos = await res.json();
+      const div = document.getElementById('lista-produtos');
+      div.innerHTML = '';
+      produtos.forEach(p => {
+        const linha = document.createElement('div');
+        linha.className = 'produto';
+
+        if (p.foto) {
+          const img = document.createElement('img');
+          img.src = p.foto;
+          img.alt = p.nome;
+          linha.appendChild(img);
+        }
+
+        const info = document.createElement('div');
+        info.className = 'info';
+        const nome = document.createElement('strong');
+        nome.textContent = p.nome;
+        info.appendChild(nome);
+        if (p.descricao) {
+          const desc = document.createElement('div');
+          desc.className = 'descricao';
+          desc.textContent = p.descricao;
+          info.appendChild(desc);
+        }
+        const preco = document.createElement('div');
+        preco.className = 'preco';
+        preco.textContent = brl(p.preco);
+        info.appendChild(preco);
+        linha.appendChild(info);
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Adicionar';
+        btn.onclick = () => adicionar(p);
+        linha.appendChild(btn);
+        div.appendChild(linha);
+      });
+    }
+
+    function adicionar(p) {
+      if (!carrinho[p.id]) carrinho[p.id] = { nome: p.nome, preco: Number(p.preco), quantidade: 0 };
+      carrinho[p.id].quantidade++;
+      desenharCarrinho();
+    }
+
+    function remover(id) {
+      carrinho[id].quantidade--;
+      if (carrinho[id].quantidade <= 0) delete carrinho[id];
+      desenharCarrinho();
+    }
+
+    function desenharCarrinho() {
+      const div = document.getElementById('carrinho');
+      const ids = Object.keys(carrinho);
+      div.innerHTML = '';
+      let total = 0;
+
+      if (ids.length === 0) {
+        div.innerHTML = '<p class="vazio">Nenhum item ainda. Escolha algo do cardápio.</p>';
+      }
+      ids.forEach(id => {
+        const item = carrinho[id];
+        total += item.preco * item.quantidade;
+        const linha = document.createElement('div');
+        linha.className = 'carrinho-item';
+        const nome = document.createElement('span');
+        nome.textContent = `${item.quantidade}x ${item.nome}`;
+        const btn = document.createElement('button');
+        btn.className = 'claro';
+        btn.textContent = 'Tirar um';
+        btn.onclick = () => remover(id);
+        linha.append(nome, btn);
+        div.appendChild(linha);
+      });
+
+      document.getElementById('total').textContent = ids.length ? `Total: ${brl(total)}` : '';
+      document.getElementById('enviar').disabled = ids.length === 0;
+    }
+
+    document.getElementById('enviar').onclick = async () => {
+      const cliente = document.getElementById('cliente').value.trim();
+      const msg = document.getElementById('mensagem');
+      if (!cliente) {
+        msg.className = 'mensagem erro';
+        msg.textContent = 'Digite seu nome para enviar o pedido.';
+        return;
+      }
+      const itens = Object.entries(carrinho).map(([id, i]) => ({ produto_id: Number(id), quantidade: i.quantidade }));
+      const res = await fetch('/api/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cliente, itens })
+      });
+      const dados = await res.json();
+      if (res.ok) {
+        msg.className = 'mensagem';
+        msg.textContent = `Pedido nº ${dados.id} enviado! Aguarde ser chamado(a).`;
+        Object.keys(carrinho).forEach(k => delete carrinho[k]);
+        document.getElementById('cliente').value = '';
+        desenharCarrinho();
+      } else {
+        msg.className = 'mensagem erro';
+        msg.textContent = dados.erro || 'Não foi possível enviar o pedido.';
+      }
+    };
+
+    carregarProdutos();
+    desenharCarrinho();
+  </script>
+</body>
+
+</html>
