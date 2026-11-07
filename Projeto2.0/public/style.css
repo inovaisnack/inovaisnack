@@ -1,0 +1,495 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+/* HEADER / CABEÇALHO DA NAVEGAÇÃO */
+.navbar {
+    background-color: #0b1e4f;
+    /* Azul escuro igual ao do Canva */
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    flex-wrap: wrap;
+    /* Permite que os elementos se acomodem em telas menores */
+    gap: 15px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder {
+    background-color: #555555;
+    color: #ffffff;
+    width: 100px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.brand-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background-color: #333333;
+}
+
+/* REGRAS DO CARRINHO NA NAVBAR */
+.btn-cart-nav {
+    background-color: #007bff;
+}
+
+.btn-cart-nav:hover {
+    background-color: #0056b3;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* CARDS DO LAYOUT */
+.banner-box {
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.sobre-preview-box {
+    background-color: #555555;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.menu-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.item-img-placeholder {
+    background-color: #555555;
+    color: white;
+    width: 120px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* FORMULÁRIO E SUB-ABAS DE FUNCIONÁRIO */
+.login-box {
+    background-color: #555555;
+    color: white;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.subnav-func {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.subnav-btn {
+    background-color: #555555;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.subnav-btn.active {
+    background-color: #0b1e4f;
+}
+
+.subsection-page {
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #0b1e4f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* GAVETA LATERAL DO CARRINHO (DIREITA) */
+.modal-carrinho {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    /* Coloca a gaveta na extrema direita */
+    z-index: 1000;
+}
+
+.conteudo-carrinho {
+    background-color: #ffffff;
+    padding: 25px;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: deslizarGaveta 0.3s ease-out;
+}
+
+@keyframes deslizarGaveta {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.cabecalho-carrinho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0b1e4f;
+    /* Borda azul combinando com o tema */
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.cabecalho-carrinho h3 {
+    color: #0b1e4f;
+}
+
+.btn-fechar-carrinho {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #0b1e4f;
+    font-weight: bold;
+}
+
+.lista-itens-carrinho {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.resumo-carrinho {
+    text-align: right;
+    font-size: 18px;
+    color: #0b1e4f;
+    margin-bottom: 15px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .logo-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        flex: 1;
+        padding: 10px 8px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .menu-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .item-img-placeholder {
+        width: 100%;
+        height: 140px;
+    }
+
+    .subnav-func {
+        justify-content: space-between;
+    }
+
+    .subnav-btn {
+        flex: 1;
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* =====================================================
+   ADIÇÕES PARA A INTEGRAÇÃO COM O SERVIDOR
+   (mesma paleta: #0b1e4f, #555555, #007bff, #cc0000)
+   ===================================================== */
+
+/* Produtos com foto */
+.item-img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.item-info h3 {
+    color: #0b1e4f;
+    margin-bottom: 4px;
+}
+
+.item-desc {
+    color: #555555;
+    font-size: 14px;
+}
+
+.item-price {
+    display: block;
+    font-weight: bold;
+    color: #0b1e4f;
+    margin: 6px 0;
+}
+
+/* Estoque */
+.linha-estoque {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.linha-estoque img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.linha-estoque .info {
+    flex: 1;
+}
+
+.btn-perigo {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.subnav-btn.sair {
+    margin-left: auto;
+    background-color: #cc0000;
+}
+
+/* Pedidos (cozinha) */
+.quadro-pedidos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.coluna-pedidos h4,
+.titulo-entregues {
+    color: #0b1e4f;
+    border-bottom: 3px solid #0b1e4f;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+
+.titulo-entregues {
+    margin-top: 25px;
+}
+
+.cartao-pedido {
+    background-color: #f9f9f9;
+    border-left: 4px solid #0b1e4f;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+}
+
+.cartao-pedido h5 {
+    font-size: 15px;
+    color: #0b1e4f;
+}
+
+.cartao-pedido small {
+    color: #666;
+}
+
+.cartao-pedido ul {
+    margin: 8px 0;
+    padding-left: 18px;
+}
+
+.linha-entregue {
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    color: #555555;
+    font-size: 14px;
+}
+
+.vazio {
+    color: #777;
+    font-style: italic;
+}
+
+/* Aviso rápido (no lugar dos alert) */
+.aviso {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0b1e4f;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 2000;
+    max-width: 90%;
+    text-align: center;
+}
+
+.aviso.erro {
+    background-color: #cc0000;
+}
+
+@media (max-width: 768px) {
+    .item-img {
+        width: 100%;
+        height: 140px;
+    }
+
+    .quadro-pedidos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estoque no cardápio */
+.estoque-aviso {
+    color: #cc0000;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.btn-primary:disabled {
+    background-color: #888888;
+    cursor: not-allowed;
+}
